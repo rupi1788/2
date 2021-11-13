@@ -173,7 +173,7 @@ public class CoffeeMakerTest {
 		recipe1.setPrice("50");
 
 		coffeeMaker1.addRecipe(recipe1);
-		assertEquals(75, coffeeMaker1.makeCoffee(0, 125));
+		assertEquals(75, coffeeMaker1.makeCoffee(1, 125));
 	}
 
     @Test
