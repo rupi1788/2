@@ -18,7 +18,7 @@ import edu.ncsu.csc326.coffeemaker.exceptions.InventoryException;
 /**
  * @author Sarah Heckman
  *
- * Inventory for the coffee maker
+ * Inventory for the coffee maker																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													`
  */
 public class Inventory {
     

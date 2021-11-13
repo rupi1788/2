@@ -101,9 +101,16 @@ public class CoffeeMakerTest {
 	 * @throws InventoryException  if there was an error parsing the quanity
 	 * 		to a positive integer.
 	 */
+	//@Test
+	//public void testAddInventory() throws InventoryException {
+	//	coffeeMaker.addInventory("4","7","0","9");
+	//}
+
 	@Test
-	public void testAddInventory() throws InventoryException {
-		coffeeMaker.addInventory("4","7","0","9");
+	public void testAddInventory1() throws InventoryException {
+		CoffeeMaker coffeeMaker5 = new CoffeeMaker();
+		coffeeMaker5.addInventory("15","15","0","15");
+		assertEquals("Coffee: 30\nMilk: 30\nSugar: 15\nChocolate: 30\n", coffeeMaker5.checkInventory());
 	}
 	
 	/**
@@ -117,19 +124,117 @@ public class CoffeeMakerTest {
 	 */
 	@Test(expected = InventoryException.class)
 	public void testAddInventoryException() throws InventoryException {
-		coffeeMaker.addInventory("4", "-1", "asdf", "3");
+
+		coffeeMaker.addInventory("4", "-1", "5", "3");
 	}
-	
+	@Test(expected = InventoryException.class)
+	public void testAddInventoryException1() throws InventoryException {
+		coffeeMaker.addInventory("4", "6", "asdf", "3");
+	}
+
+
+	/**
+	 * Given a coffee maker with one existing inventory
+	 *    having each ingredient amount 15
+	 * When we check inventory
+	 * Then we get the correct list of ingredients
+	 *   with correct amount available.
+	 */
+	@Test
+	public void testCheckInventory(){
+		CoffeeMaker coffeeMaker4 = new CoffeeMaker();
+		assertEquals("Coffee: 15\nMilk: 15\nSugar: 15\nChocolate: 15\n", coffeeMaker4.checkInventory());
+	}
+
+
+
+
 	/**
 	 * Given a coffee maker with one valid recipe
 	 * When we make coffee, selecting the valid recipe and paying more than 
 	 * 		the coffee costs
 	 * Then we get the correct change back.
 	 */
+	//@Test
+	//public void testMakeCoffee() {
+	//	coffeeMaker.addRecipe(recipe1);
+	//	assertEquals(25, coffeeMaker.makeCoffee(0, 75));
+	//}
+
 	@Test
-	public void testMakeCoffee() {
-		coffeeMaker.addRecipe(recipe1);
-		assertEquals(25, coffeeMaker.makeCoffee(0, 75));
+	public void testMakeCoffee1() throws RecipeException {
+		CoffeeMaker coffeeMaker1 = new CoffeeMaker();
+		recipe1 = new Recipe();
+		recipe1.setName("Coffee");
+		recipe1.setAmtChocolate("2");
+		recipe1.setAmtCoffee("3");
+		recipe1.setAmtMilk("1");
+		recipe1.setAmtSugar("1");
+		recipe1.setPrice("50");
+
+		coffeeMaker1.addRecipe(recipe1);
+		assertEquals(75, coffeeMaker1.makeCoffee(0, 125));
 	}
+
+    @Test
+	public void testMakeCoffee1A() throws RecipeException {
+		coffeeMaker.addRecipe(recipe1);
+		CoffeeMaker coffeeMaker1 = new CoffeeMaker();
+		recipe1 = new Recipe();
+		recipe1.setName("Coffee");
+		recipe1.setAmtChocolate("2");
+		recipe1.setAmtCoffee("3");
+		recipe1.setAmtMilk("1");
+		recipe1.setAmtSugar("1");
+		recipe1.setPrice("50");
+
+		coffeeMaker1.addRecipe(recipe1);
+		assertEquals(0, coffeeMaker1.makeCoffee(1, 50));
+	}
+
+	/**
+	 * Given a coffee maker with one valid recipe
+	 * When we make coffee, selecting the valid recipe and paying less than
+	 * 	the coffee costs
+	 * Then we get the amount paid back.
+	 */
+	@Test
+	public void testMakeCoffee2() throws RecipeException {
+		CoffeeMaker coffeeMaker2 = new CoffeeMaker();
+		recipe1 = new Recipe();
+		recipe1.setName("Coffee");
+		recipe1.setAmtChocolate("2");
+		recipe1.setAmtCoffee("3");
+		recipe1.setAmtMilk("1");
+		recipe1.setAmtSugar("1");
+		recipe1.setPrice("50");
+		coffeeMaker2.addRecipe(recipe1);
+
+		assertEquals(25, coffeeMaker2.makeCoffee(1, 25));
+	}
+	/**
+	 * Given a coffee maker with one valid recipe but in
+	 *   the inventory one ingredient is not available
+	 * When we make coffee, selecting the valid recipe and paying more than
+	 * 		the coffee costs
+	 *
+	 * Then we get the amount paid back.
+	 */
+	@Test
+	public void testMakeCoffee3() throws RecipeException {
+		CoffeeMaker coffeeMaker3 = new CoffeeMaker();
+		recipe2 = new Recipe();
+		recipe2.setName("Chocolate");
+		recipe2.setAmtChocolate("10");
+		recipe2.setAmtCoffee("8");
+		recipe2.setAmtMilk("16");
+		recipe2.setAmtSugar("8");
+		recipe2.setPrice("250");
+		coffeeMaker3.addRecipe(recipe2);
+
+		assertEquals(400, coffeeMaker3.makeCoffee(2, 400));
+	}
+
+
 
 }
